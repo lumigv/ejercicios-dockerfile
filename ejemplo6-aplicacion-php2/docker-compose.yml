@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  apache:
+    container_name: servidor_apache
+    build: ./
+    ports:
+      - 80:80
+    volumes:
+      - ./src:/var/www/html  
+    depends_on:
+      - mysql
+  mysql:
+    container_name: servidor_mysql
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+volumes:
+    mariadb_data:
