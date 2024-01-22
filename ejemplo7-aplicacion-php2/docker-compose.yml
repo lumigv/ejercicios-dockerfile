@@ -2,15 +2,19 @@ version: '3.1'
 services:
   app:
     container_name: contenedor_php
-    image: lumigv/aplicacion_php1
+    build: ./
+    #image: lumigv/aplicacion_php2
     restart: always
     environment:
-      DB_HOST: servidor_mysql
+      #DB_HOST: servidor_mysql
+      DB_HOST: db
       DB_USER: user1
       DB_PASS: asdasd
       DB_NAME: usuarios
     ports:
       - 8080:80
+    volumes:
+      - ./src:/var/www/html  
     depends_on:
       - db
   db:
@@ -24,5 +28,6 @@ services:
       MYSQL_ROOT_PASSWORD: asdasd
     volumes:
       - mariadb_data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
 volumes:
     mariadb_data:

@@ -7,8 +7,13 @@
  $pass = getenv('DB_PASS');
  //Database name
  $db = getenv('DB_NAME');
+ echo "hola mundo";
+ echo $host;
+ echo $user;
+ echo $pass;
+ echo $db;
  // check the MySQL connection status
- $conn = new mysqli($host, $user, $pass,$db);
+ $conn = new mysqli($host, $user,$pass,$db);
  if ($conn->connect_error) {
      die("Connection failed: " . $conn->connect_error);
  } else {
